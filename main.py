@@ -1,8 +1,24 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
+templates = Jinja2Templates(directory="templates")
 
 
-@app.get("/")
-def hello_world():
-    return "Hello World!"
+@app.get("/", response_class=HTMLResponse)
+def home(request: Request):
+    """Renders the home page.
+    """
+    text = {
+        "title": "Home page",
+        "content": "Welcome to the home page!"
+    }
+    context = { "text": text, "sequence": ["a", "b", "c"] }
+
+    return templates.TemplateResponse(
+        request=request,
+        name="home.html",
+        context=context
+    )
+
