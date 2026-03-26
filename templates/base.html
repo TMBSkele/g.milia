@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
 </head>
 <body>
    <header>
        <h1>Un sito web</h1>
-       <p>This is a simple FastAPI app.</p>
+       <p>This is a store.</p>
    </header>
 
    <nav>
     <a href="/">Home</a>
-    <a href="http://wikipedia.it">Wikipedia</a>
-    <a href="#">Qualcosa</a>
+    <a href="{{ url_for('products') }}">Products</a>
    </nav>
 
    <div class="container">
