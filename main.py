@@ -46,7 +46,7 @@ def product_form(
 
 @app.get("/insert_product", response_class=HTMLResponse)
 def insert_product(
-        name: Annotated[str, Field(min_length=3, max_length=30)],
+        name: Annotated[str, Field(min_length=2, max_length=30)],
         price: Annotated[float, Field(gt=0)],
         location: Annotated[str, Field(min_length=2, max_length=30)],
 ):
