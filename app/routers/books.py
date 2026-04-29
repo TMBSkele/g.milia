@@ -36,3 +36,65 @@ def add_review(
         return "Review added successfully."
     except KeyError:
         raise HTTPException(status_code=404, detail="Book not found.")
+
+
+
+@books_router.post("/")
+def add_book(book: Book):
+    """Add a new book to the database."""
+    if book.id in books:
+        raise HTTPException(status_code=403, detail="Book already exists.")
+    else:
+        books[book.id] = book
+        return "Book added successfully."
+
+
+@books_router.put("/{id}")
+def replace_book(
+        id: Annotated[int, Path(description="Book's id to get.")],
+        book: Book
+):
+    """Replace a book by id."""
+    if not id in books:
+        raise HTTPException(status_code=404, detail="Book not found.")
+    else:
+        books[id] = book
+        return "Book replaced successfully."
+
+
+@books_router.patch("/{id}")
+def update_book(
+        id: Annotated[int, Path(description="Book's id to get.")],
+        book: Book
+):
+    """Update a book by id."""
+    if not id in books:
+        raise HTTPException(status_code=404, detail="Book not found.")
+    else:
+        books[id] = book
+        return "Book updated successfully."
+
+
+
+
+@books_router.delete("/{id}")
+def delete_book(
+        id: Annotated[int, Path(description="Book's id to get.")],
+        book: Book
+):
+    """Deletes a book by id."""
+    if id in books:
+        del books[id]
+        return "Book deleted successfully."
+    else:
+        raise HTTPException(status_code=404, detail="Book not found.")
+
+
+
+
+
+@books_router.delete("/")
+def delete_all_books():
+    """Delete all books."""
+    books.clear()
+    return "All books deleted successfully."

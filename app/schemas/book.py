@@ -2,6 +2,12 @@ from pydantic import BaseModel, Field
 from typing import Annotated
 
 
+
+class BookPatch(BaseModel):
+    title: str | None = None
+    author: str | None = None
+
+
 class Book(BaseModel):
     id: int
     title: str
