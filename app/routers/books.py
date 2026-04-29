@@ -9,9 +9,14 @@ books_router = APIRouter(prefix="/books", tags=["books"])
 
 
 @books_router.get("/")
-def get_all_books() -> list[Book]:
+def get_all_books(
+        sort: Annotated[bool, Query(description="Sort by book's review.")] = False
+) -> list[Book]:
     """Return a list of all available books."""
-    return books.values()
+    if sort:
+        sorted(books.values(), key=lambda book: book.review)
+    else:
+        return list(books.values())
 
 
 @books_router.get("/{id}")
