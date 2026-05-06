@@ -1,6 +1,7 @@
 from sqlmodel import SQLModel, create_engine, Session
 from typing import Annotated
 from fastapi import Depends
+from schemas.book import BookDB
 
 sqlite_file_name = "C:/Users/Gabriele/Documents/GitHub/g.milia/lab2026/app/data/database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
